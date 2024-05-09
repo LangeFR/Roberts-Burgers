@@ -3,11 +3,19 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+
+use App\Http\Middleware\AuthMiddleware;
 
 use App\Models\Plato;
  
 Route::get('/dishes', 'app/Http/Controllers/PlatoController.php@index');
 Route::post('/dishes', 'app/Http/Controllers/PlatoController.php@store');
+Route::get('/users', [UserController::class, 'index']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::resource('/users', UserController::class)
+->middleware(AuthMiddleware::class);
+
 
 Route::get('/platos', function () {
     $listaPlatos = Plato::all();
@@ -114,5 +122,3 @@ Route::delete('/borrar-plato', function (Request $request) {
     // Devolver el objeto Ciudadano creado en formato JSON
     return response()->json($plato);
 });
-
-Route::post('/login', [AuthController::class, 'login']);
