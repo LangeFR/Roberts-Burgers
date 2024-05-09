@@ -23,7 +23,7 @@ document
         };
 
         // Realizar la solicitud POST utilizando Fetch API
-        fetch("http://tu-endpoint.com/login", requestOptions)
+        fetch("'http://127.0.0.1:8000/api/login'", requestOptions)
             .then((response) => {
                 // Verificar si la respuesta es exitosa
                 if (!response.ok) {

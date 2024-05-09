@@ -7,12 +7,19 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    public function login(Request $request)
-    {
-        echo json_encode($_SERVER, JSON_PRETTY_PRINT);
+    public function login(Request $request){
 
+        echo json_encode($_SERVER, JSON_PRETTY_PRINT);
+        
         $email = $_SERVER['PHP_AUTH_USER'];
         $clave = $_SERVER['PHP_AUTH_PW'];
+
+        //$email = $_SERVER['PHP_AUTH_USER'];
+        //$clave = $_SERVER['PHP_AUTH_PW'];
+
+        //$email = $request->getUser();
+        //$clave = $request->getPassword();
+
 
         $user = User::where('email', $email)->first();
 
@@ -22,7 +29,7 @@ class AuthController extends Controller
             return response()->json(['message' => $message, 'token' => $token]);
         } elseif (!$user) {
             $message = "El usuario no existe.";
-            return response()->json(['message' => $message], 404);
+            return response()->json(['message' => $message], 400);
         } else {
             $message = "Usuario o contraseña incorrectos";
             return response()->json(['message' => $message], 401);
