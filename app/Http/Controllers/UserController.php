@@ -16,7 +16,7 @@ class UserController extends Controller
         $users = User::all();
 
         // Retornar la lista de usuarios como respuesta JSON
-        return response()->json($users);
+        return "response()->json($users)";
     }
 
     /**
