@@ -51,19 +51,21 @@ document
 
 function loadUsers() {
     const token = sessionStorage.getItem('token');
-    const url = 'http://localhost:8000/api/users'; // Reemplaza la URL con la correcta para tu aplicación
+    const url = 'http://localhost:8000/api/users'; 
     console.log(token);
-    fetch(url, {
+
+    const requestOptions = {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`,
         },
-        mode: 'no-cors'
-    })
+        //mode: 'no-cors'
+    }
+
+    fetch(url, requestOptions)
         .then(response => {
-            return "hola";
             if (!response.ok) {
-                throw new Error('Error al cargar usuarios: ' + response.statusText);
+                throw new Error('Error cargando usuarios: ' + response.statusText);
             }
             return response.json();
         })
