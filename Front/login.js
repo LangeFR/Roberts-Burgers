@@ -50,7 +50,7 @@ document
 
 
 function loadUsers() {
-    const token = sessionStorage.getItem('token');
+    var token = sessionStorage.getItem('token');
     const url = 'http://localhost:8000/api/users'; 
     console.log(token);
 
@@ -77,4 +77,9 @@ function loadUsers() {
             console.error('Error al cargar usuarios:', error);
         });
 }
+
+window.addEventListener('beforeunload', function(event) {
+    // Eliminar el token de sessionStorage
+    sessionStorage.removeItem('token');
+});
 
