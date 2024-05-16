@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
     public function login(Request $request){
-
         // Obtener las credenciales del cuerpo de la solicitud
         $credentials = $request->only('email', 'password');
         $email = $credentials['email'];
@@ -19,8 +19,12 @@ class AuthController extends Controller
 
         // Verificar si el usuario existe y la contraseña es válida
         if ($user && password_verify($clave, $user->password)) {
+            //crear token
+            $token = Str::random(60);
+            $user->remember_token = $token;
+            $user->save();
+
             $message = "Inicio de sesión exitoso!";
-            $token = $user->remember_token;
             return response()->json(['message' => $message, 'token' => $token]);
         } elseif (!$user) {
             $message = "El usuario no existe.";

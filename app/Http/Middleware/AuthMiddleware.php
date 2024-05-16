@@ -24,6 +24,8 @@ class AuthMiddleware
             ->json(['error' => 'Usuario no autorizado'], 401);
         }
 
-      return $next($request);
+        //$user->update(['remember_token' => $token]);
+
+        return $next($request);
     }
 }

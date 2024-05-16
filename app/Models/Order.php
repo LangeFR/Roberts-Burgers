@@ -5,30 +5,30 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Client extends Model
+class Order extends Model
 {
     use HasFactory;
 
     protected $table = 'orders';
 
     protected $fillable = [
-        'id',
         'direccion',
-        'clienteID'
+        'numero',
+        'user_id'
     ];
-
     /**
-     * Get the client that owns the phone.
+     * Get the user that owns the phone.
      */
-    public function client(): BelongsTo
+    public function user()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(User::class);
     }
     /*
      * Get the platos 
      */
-    public function platos(): HasMany
+    public function platos()
     {
-        return $this->hasMany(Plato::class);
+        
+        return $this->belongsToMany(Plato::class)->withPivot(['quantity']);
     }
 }

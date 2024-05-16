@@ -23,17 +23,33 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request){
+        // Crear el usuario
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = password_hash($request->password, PASSWORD_DEFAULT);
+        $user->save();
+
+        return response()->json([
+            'message' => 'Usuario creado correctamente'
+        ], 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $id)
     {
-        //
+        $user = User::find($id);
+        $user->load(["orders"]);
+        
+
+        if(!$user){
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        return response()->json($user);
     }
 
     /**

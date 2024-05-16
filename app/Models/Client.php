@@ -13,15 +13,15 @@ class Client extends Model
     
 
     protected $fillable = [
-        'id',
         'nombre',
-        'numero',
+        'email',
+        'password',
     ];
 
     /*
      * Get the orders 
      */
-    public function orders(): HasMany
+    public function orders()
     {
         return $this->hasMany(Order::class);
     }
