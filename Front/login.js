@@ -39,6 +39,7 @@ document
             .then((data) => {
                 // Manejar la respuesta JSON
                 console.log("Respuesta del servidor:", data);
+                
                 // Guardar el token en el session storage del navegador
                 sessionStorage.setItem("token", data.token);
             })
