@@ -1,0 +1,786 @@
+link[rel="icon"] {
+    filter: brightness(0%) invert(1); /* Cambia el color a negro */
+}
+
+/*
+    -------------
+    Navbar inicio
+    -------------
+*/
+#moreTextPresentacion {
+    display: none;
+}
+
+/* Estilos para la barra de navegación */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* Añadido para centrar el contenido horizontalmente */
+    background-color: rgb(48, 46, 46);
+    /* Fondo blanco */
+    padding: 0px;
+    /* Espaciado interno */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Sombra suave */
+}
+
+.logo {
+    color: #ffd400;
+    /* Color dorado */
+    text-decoration: none;
+    /* Quitamos subrayado del enlace */
+}
+
+.navBar {
+    display: flex;
+    flex-direction: row;
+}
+
+.links {
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 2;
+    flex-basis: 0;
+    text-decoration: none;
+    color: #000000;
+    flex-grow: 1;
+    align-items: center;
+    margin-right: auto;
+}
+
+.links ul {
+    display: flex;
+    /* Asegura que los elementos de la lista se muestren en línea */
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.links ul li {
+    margin-right: 20px;
+    /* Espaciado entre los elementos de la lista */
+}
+
+.links ul li:last-child {
+    margin-right: 0;
+    /* Elimina el margen derecho del último elemento de la lista */
+}
+
+.links ul li a {
+    text-decoration: none;
+    color: #ffd23f;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+/*
+    ------------
+    Navbar Final
+    ------------
+*/
+
+/*----------------------*/
+
+/*
+    --------------
+    Carrito Inicio
+    --------------
+*/
+
+
+.resumen {
+    flex: 1;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 400px;
+    color: white;
+}
+
+.pago {
+    flex: 1;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    padding: 20px;
+    height: fit-content;
+}
+
+
+.carrito {
+    border-radius: 10px;
+    padding: 20px;
+    margin-right: 20px;
+    width: 300px;
+}
+
+.main {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    color: white;
+}
+
+.resumen,
+.innerPago {
+    flex: 1;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    color: rgb(255, 162, 0);
+}
+
+.itemsCarrito,
+.resumenPago,
+.pago {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.imagenpago {
+    width: 350px;
+}
+
+#total {
+    background-color: white;
+}
+
+.botonComprar {
+    padding: 10px 20px;
+    background-color: rgb(255, 162, 0);
+    color: black;
+    border: black;
+    border-radius: 5px;
+
+}
+
+.carritoCompras {
+    gap: 10px;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 20px;
+    align-items: stretch;
+}
+
+#totalPrecio {
+    resize: none;
+    height: 1rem;
+    text-align: right;
+}
+
+#totalTituloValor {
+    display: flex;
+
+}
+
+.item-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 5px;
+    flex-wrap: wrap;
+    
+}
+
+.carritoNombrePrecio{
+    display: flex;
+    flex-direction: row;
+}
+
+.cantidadItem {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/*
+    --------------
+    Carrito Final
+    --------------
+*/
+/*----------------------*/
+/*
+    -------------------
+    Landing Page Inicio
+    -------------------
+*/
+.añadir-carrito {
+    padding: 10px 20px;
+    background-color: #ff9900;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+*button :hover {
+    cursor: pointer;
+}
+
+html,
+body {
+    max-height: 100vw;
+    margin: 0;
+    background-color: rgb(48, 46, 46);
+}
+
+
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    gap: 5px;
+}
+
+/*Imagenes*/
+
+.imagenesPlatos {
+    max-height: 108px;
+    aspect-ratio: 144 / 108;
+    object-fit: cover;
+}
+
+.imagenesDescripcion {
+    margin: 18px;
+    border-radius: 20px 20px 20px 20px;
+    max-height: 150px;
+    aspect-ratio: 150 / 100;
+    object-fit: cover;
+}
+
+
+
+
+
+.presentacion {
+    align-items: center;
+    display: flex;
+    border-radius: 10px;
+    font-family: sans-serif;
+    color: #000;
+    background-color: #ffa600;
+    margin: 20px;
+}
+
+#divPresentacion {
+    display: block;
+}
+
+.decripcionPresentacion {
+    padding: 10px;
+    margin: 0;
+
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    /* Tamaño de fuente */
+    line-height: 1.5;
+    /* Altura de línea para una mejor legibilidad */
+    color: #333;
+    /* Color del texto */
+}
+
+
+
+#btnReadMorePresentacion {
+    margin: 5px;
+    border: 0;
+    background-color: transparent;
+    font-style: italic;
+    color: #000;
+    opacity: 0.8;
+}
+
+#listaItemsEntrada li {
+    display: flex;
+}
+
+#listaItemsPlatosPrincipales li {
+    display: flex;
+}
+
+#listaItemsBebidas li {
+    display: flex;
+}
+
+#listaItemsPostres li {
+    display: flex;
+}
+
+.mostrarCategoria {
+    border: 0;
+    background-color: transparent;
+    color: #000;
+    margin-left: 2px;
+
+}
+
+.mostrarCategoria {
+    font-family: 'Hanley Pro Sans';
+    font-size: 24px;
+    /* Tamaño de fuente */
+    text-transform: uppercase;
+    /* Convertir texto a mayúsculas */
+    letter-spacing: 1px;
+    /* Espaciado entre letras */
+}
+
+#entradas {
+    justify-content: center;
+    font-size: 1rem;
+    min-height: 40px;
+    margin-bottom: px;
+    background-color: #A8D8EA;
+    border-radius: 5px 5px 5px 5px;
+}
+
+#platosPrincipales {
+    min-height: 40px;
+    margin-bottom: 0px;
+    background-color: #A8D8EA;
+    border-radius: 5px 5px 5px 5px;
+}
+
+#bebidas {
+    min-height: 40px;
+    margin-bottom: 0px;
+    background-color: #A8D8EA;
+    border-radius: 5px 5px 5px 5px;
+}
+
+#postres {
+    min-height: 40px;
+    margin-bottom: 0px;
+    background-color: #A8D8EA;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.menu ul li {
+    padding: 10px;
+}
+
+ul li:last-child {
+    padding-bottom: 10px;
+}
+
+
+h3 {
+    margin: 3px;
+}
+
+.mostrarDescripcionItem {
+    border: none;
+    background-color: transparent;
+    color: #000;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+ul,
+ol {
+    list-style-type: none;
+}
+
+.descCarrito {
+    margin-left: 20px;
+}
+
+.mostrar {
+    display: block;
+    /* Muestra la descripción y el botón cuando la clase "mostrar" está presente */
+}
+
+#footer {
+    width: 100%;
+    background-color: #FCBAD3;
+    color: #000;
+    padding: 0;
+    margin: 0;
+    margin-top: 10px;
+    justify-content: center
+}
+
+#footer div {
+    max-width: 600px;
+    margin: auto;
+    /* Centra el contenido horizontalmente */
+}
+
+.somos {
+    padding: 60px 0;
+    text-align: center;
+    background-color: #ff9809;
+    color: #000;
+}
+
+#somos {
+    background-color: rgb(48, 46, 46);
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #ff9500;
+    border: 2px solid #000;
+    border-radius: 10px;
+    padding: 20px;
+    padding-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    color: #000;
+}
+
+.section-description {
+    font-size: 18px;
+    margin-bottom: 40px;
+    color: #000000;
+}
+
+.section-title {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+
+.main {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.itemsCarrito {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    flex: 1;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    padding: 20px;
+    min-width: 30%;
+}
+
+.itemsCarrito h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.itemsCarrito ul {
+    overflow: auto;
+    max-height: 345px;
+    list-style-type: none;
+    padding: 0;
+}
+
+.itemsCarrito button {
+    padding: 10px 20px;
+    background-color: #ff9900;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.itemsCarrito button:hover {
+    background-color: #ffbd4a;
+}
+
+.resumenPago {
+    flex: 1;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.resumen h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    margin-top: 0px;
+}
+
+.total-container {
+    display: flex;
+    align-items: center;
+}
+
+.total-container h3 {
+    font-size: 18px;
+    margin-right: 10px;
+    color: #333;
+}
+
+#total {
+    width: 100px;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 16px;
+    color: #333;
+}
+
+
+
+.pago h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    margin-top: 0px;
+}
+
+.imagenpago {
+    width: 100%;
+    max-width: 350px;
+    margin-bottom: 20px;
+}
+
+.botonComprar {
+    padding: 10px 20px;
+    background-color: #ff9900;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.botonComprar:hover {
+    background-color: #ffbd4a;
+}
+
+@media (max-width: 680px) {
+    .carritoCompras {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .carritoComprasID{
+        align-items: stretch;
+    }
+}
+@media (max-width: 820px) {
+    .presentacion {
+        flex-direction: column;
+    }
+}
+
+.loader {
+    animation: spin 2s linear infinite;
+    position: fixed;
+    z-index: 999;
+    top: 35%;
+    left: 45%;
+    margin-top: -5px;
+    margin-left: -5px;
+    display: none;
+}
+
+
+.hamburguesaloader {
+    width: 150px;
+    height: 150px;
+
+}
+
+
+/* Animación de rotación */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+.categorias {
+    display: flex;
+}
+
+.pCategoria {
+    margin-right: 10px;
+}
+
+.InfoPlato {
+    background-color: #484646;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.InfoPlato h3 {
+    font-size: 20px;
+    color: #f0b11e;
+    margin-bottom: 10px;
+}
+
+.InfoPlato p {
+    font-size: 16px;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.InfoPlato img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    height: 250px
+}
+
+.decripcionPresentacion {
+    padding: 10px;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: rgb(0, 0, 0);
+}
+
+.seleccionaYapping {
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    background-color: rgb(47, 47, 47);
+    color: white !important;
+    text-emphasis-color: rgb(48, 46, 46);
+    margin-left:20px;
+}
+
+.menu {
+    background-color: rgb(48, 46, 46);
+}
+
+.categorias {
+    display: flex;
+}
+
+
+.pCategoria:hover {
+    background-color: #ffecac;
+}
+
+.hamburguesacentral {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    height: 250px
+}
+
+button {
+    background-color: #ff9900;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 10px 20px;
+    margin: 5px;
+    color: black !important;
+}
+
+button:hover {
+    background-color: #ffbd4a;
+}
+
+.carritoContainer {
+    display: flex;
+}
+
+input[type="text"],
+input[type="number"] {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.botonComprar {
+    display: block;
+    background-color: #f4921b;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+
+}
+
+.botonComprar:hover {
+    background-color: #0056b3;
+}
+
+.nombrePrecioPlato{
+    display: flex;
+    flex-direction: row;
+}
+
+#totalTituloValor{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    margin: 0 auto;
+}
+h7{
+    font-size: 30px;
+}
+#totalPrecio{
+    font-size: 30px;
+    background-color: transparent;
+    border: none;
+    resize: none;
+    height: auto;
+    text-align: center;
+}
+
+#imagenResumen{
+    max-width: 33%;
+    display: block; /* Para que la imagen se comporte como un bloque */
+    margin: 0 auto;
+}
+
+/*
+    ------------------
+    Landing Page Final
+    ------------------
+*/
+#blockScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.226); /* Semitransparente */
+    z-index: 9999; /* Asegura que esté encima de otros elementos */
+    display: none; /* Inicialmente oculto */
+  }
+  
+  #blockScreenMessage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 24px;
+  }

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api\V1;
  
 use App\Http\Controllers\Controller;
-use App\Models\Client;
+use App\Models\Plato;
 use Illuminate\Http\Request;
  
-class  ClientController extends Controller
+class  PlatoControllerpre extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,17 +22,35 @@ class  ClientController extends Controller
      */
     public function store(Request $request)
     {
-        $dishes = new Client;
-        $dishes->name = $request->name;
-        $dishes->price = $request->price;
-        $dishes->description = $request->description;
-        $dishes->imageUrl = $request->imageUrl;
-        $dishes->save();
- 
- 
-        return response()->json([
-            "message" => "Succesfully Stored"
+        
+        // Obtener los datos de la solicitud
+        $nombre = $request->input('nombre');
+        $descripcion = $request->input('descripcion');
+        $precio = $request->input('precio');
+        $imagen = $request->input('imagen');
+        $categoria = $request->input('categoria');
+
+
+        // Verificar si falta algún campo requerido
+        if (empty($nombre) || empty($descripcion) || empty($precio) || empty($imagen) || empty($categoria)) {
+            // Devolver un error 400 - Solicitud incorrecta
+            return response()->json(['error' => 'Faltan campos requeridos'], 400);
+        }
+
+        // Crear un nuevo objeto Ciudadano
+        $plato = new Plato([
+            'nombre' => $nombre,
+            'descripcion' => $descripcion,
+            'precio' => $precio,
+            'imagen' => $imagen,
+            'categoria' => $categoria
         ]);
+
+        // Guardar el plato en la base de datos u realizar otras operaciones necesarias
+        $plato->save();
+
+        // Devolver el objeto Ciudadano creado en formato JSON
+        return response()->json($plato);
     }
  
     /**
@@ -80,6 +98,12 @@ class  ClientController extends Controller
         return response()->json([
             "message" => "Succesfully Deleted"
         ]);
+    }
+
+    public function loadPlatos(){
+        $platos = Platos::all();
+
+        return response()->json($platos);
     }
 }
  

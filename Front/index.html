@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Robert's Burgers</title>
+    <link rel="icon" href="icono.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/scrollreveal"></script>
+</head>
+<body>
+    <div id="blockScreen">
+        <div id="blockScreenMessage"></div>
+    </div>
+
+    <header class="header">
+        <nav class="navBar">
+            <div class="logo">
+                <img src="robertslogo.png" alt="Logo" height="100" width="200">
+            </div>
+            <div class="links">
+                <ul class="ulLinks">
+                    <li><a href="#Inicio">Inicio</a></li>
+                    <li><a href="#Eventos">Eventos</a></li>
+                    <li><a href="#Locales">Locales</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="presentacion">
+        <img class="imagenesDescripcion" id="hamburguesaDescripcion" src="./Imagenes_Menu/Hamburguesa_Descripcion.png">
+        <div id="divPresentacion">  
+            <p class="decripcionPresentacion">¡Bienvenidos a Robert's Burgers, el lugar donde los sueños de las hamburguesas se hacen realidad!
+                <br><br>
+                En Robert's Burgers, nos enorgullecemos de ofrecer la mejor experiencia gastronómica para los amantes de las hamburguesas.
+                Nuestras hamburguesas están hechas con carne de la más alta calidad, 
+                seleccionada cuidadosamente para garantizar jugosidad y sabor en cada bocado.<span id="dotsReadMorePresentacion">...</span><span id="moreTextPresentacion">
+                <br><br>
+                Además, ofrecemos una amplia variedad de opciones, desde las clásicas hamburguesas de carne de res 
+                hasta opciones vegetarianas y veganas, para satisfacer todos los gustos y preferencias.
+                <br><br>
+                Nuestro compromiso con la frescura y la calidad se refleja en cada ingrediente, 
+                desde el pan recién horneado hasta las salsas caseras y los vegetales frescos.
+                <br><br>
+                En Robert's Burgers, no solo servimos hamburguesas, 
+                ¡creamos experiencias memorables para nuestros clientes! 
+                Ven y únete a nosotros para disfrutar de una deliciosa comida en un ambiente acogedor y familiar.
+                <br><br>
+                ¡Te esperamos en Robert's Burgers para que descubras la verdadera pasión por las hamburguesas!
+            </span></p>
+
+            <button onclick="readMorePresentacion()" id="btnReadMorePresentacion">Read more</button>
+        </div>
+        <img class="imagenesDescripcion" id="malteadaDescripcion" src="./Imagenes_Menu/Malteada_Descripcion.png">
+    </div>
+
+<!--------------------MENU----------------------------------------->
+    <main>
+        <div class="menu">
+
+            <div class="display">
+                <h2 class="seleccionaYapping">¡Selecciona la categoría de tu interés y mira las opciones!</h2>
+                <div id="loader" class="loader">
+                    <img src="hamburguesa_elegante.png" class="hamburguesaloader" style="display: flex; justify-content: center; align-items: center;">
+                </div>
+                <div class="categorias" style="display: flex; justify-content: center; align-items: center;">
+                    <button id="listaItemsEntrada">Entradas</button></p>
+                    <button id="listaItemsPrincipales">Platos Principales</button></p>
+                    <button id="listaItemsBebidas"> Bebidas</button></p>
+                    <button id="listaItemsPostres">Postres</button></p>
+                </div>
+                <div class="InfoPlato">
+                    <div class="divImagen" style="display: flex; justify-content: center; align-items: center;">
+                        <img src="midhamburguesa1.png" class="hamburguesacentral">
+                    </div>
+                </div>
+            </div>
+
+            <div class="inputUsuario">
+        <div class="carritoCompras" id="carritoComprasID">
+            <div class="itemsCarrito" id="itemsCarritoID">
+                <h2 id="test">Carrito de Compras</h2>
+                <ul id="carritoList">
+                </ul>
+                <button id="limpiarCarrito">Limpiar Carrito</button>
+            </div>
+
+
+            <div class="resumenPago" id="resumenPagoID">
+                <div class="resumen">
+                    <h2>Resumen</h2>
+                    <div id="totalTituloValor">
+                        <h7>Total: &nbsp;</h7>
+                        <textarea id="totalPrecio" disabled>0</textarea>
+                    </div>
+                    <img id="imagenResumen" src="hamburguesa_elegante.png">
+                </div>
+            </div>
+            <div class="pago" id="pagoID">
+                <div class="innerPago">
+                    <h2>Ingresa tus datos</h2>
+                    <form id="formulario" method="post" name="submit-form" action="https://script.google.com/macros/s/AKfycbwgidJUqj5RAmPH_sZQVA2D-rHAcxO4bKfAjG2ursRCa3o7dbFZ36WafHT0-Z-bCr8X/exec">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Escribe tu nombre" required/>
+                        <br>
+                        <label for="numero">Número</label> 
+                        <input type="number" id="numero" name="numero" placeholder="Escribe tu # de teléfono" required/> 
+                        <br>
+                        <label for="direccion">Dirección</label>
+                        <input type="text" id="direccion" name="direccion" placeholder="Escribe tu dirección    " required/>
+                        <br>
+                        <input type="submit" value="Comprar" id="submit" class="botonComprar">
+                        <!---<button type="button" onclick="enviarFormulario()" class="botonComprar">Comprar</button> -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer id="somos">
+        <div class="container">
+            <h2 class="section-title">¿Quiénes somos?</h2>
+            <p class="section-description">Somos Carlos Sánchez y Mateo Vanegas, en Robert's cocinamos con pasión y dedicación para ofrecerte una experiencia gastronómica única.</p>
+            <p class="section-description">¡Ven y descubre el arte de la cocina en Robert's!</p>
+            </div>
+        </div>
+    </footer>
+    </footer>
+    <script src="script.js"></script>
+    <div class="locker"></div>
+</body>
+</html>

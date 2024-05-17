@@ -28,7 +28,6 @@ class Order extends Model
      */
     public function platos()
     {
-        
         return $this->belongsToMany(Plato::class)->withPivot(['quantity']);
     }
 }
