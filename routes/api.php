@@ -9,18 +9,18 @@ use App\Http\Controllers\API\PlatoController;
 
 use App\Http\Middleware\AuthMiddleware;
 
-use App\Models\Plato;
  
-Route::get('/dishes', 'app/Http/Controllers/PlatoController.php@index');
-Route::post('/dishes', 'app/Http/Controllers/PlatoController.php@store');
+
 Route::get('/users', [UserController::class, 'index']);
-Route::post('/login', [AuthController::class, 'login']);
 Route::resource('/users', UserController::class)
 ->middleware(AuthMiddleware::class);
-Route::get('/order', [OrderController::class, 'show']);
-Route::post('/new-order', [OrderController::class, 'store']);
 Route::post('new-user', [UserController::class, 'store']);
 Route::get('/user', [UserController::class, 'show']);
+
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::get('/order', [OrderController::class, 'show']);
+Route::post('/new-order', [OrderController::class, 'store']);
 Route::get('/orders', [OrderController::class,'index']);
 
 Route::post('/crear-plato', [PlatoController::class, 'store']);
