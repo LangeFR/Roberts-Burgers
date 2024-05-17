@@ -1,0 +1,20 @@
+
+/* Estilo para limitar el tamaño de las imágenes */
+img {
+    max-width: 100px;
+    max-height: 80px;
+}
+
+/* Estilo para agregar desplazamiento de desbordamiento */
+#infoContainer {
+    max-height: 200px; /* Altura máxima del contenedor */
+    overflow-y: auto; /* Agregar desplazamiento vertical cuando el contenido exceda la altura máxima */
+}
+
+/* Estilo para la caja del pedido */
+.order-box {
+    background-color: #f2f2f2; /* Fondo gris claro */
+    border: 1px solid #ccc; /* Borde gris */
+    padding: 10px; /* Espaciado interno */
+    margin-bottom: 10px; /* Espaciado entre cajas de pedidos */
+}

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Administración</title>
+    <link rel="stylesheet" href="Admin.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -51,9 +52,9 @@
     <div class="admin-panel">
         <h1>Panel de Administración</h1>
         <div class="button-container">
-            <button onclick="verPlatos()">Ver Platos</button>
+            <button onclick="loadPlatos()">Ver Platos</button>
             <button onclick="loadUsers()">Ver Usuarios</button>
-            <button onclick="verPedidos()">Ver Pedidos</button>
+            <button onclick="loadPedidos()">Ver Pedidos</button>
         </div>
         <div id="infoContainer">
             <!-- Aquí se mostrará la información -->

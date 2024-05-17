@@ -12,8 +12,7 @@ use App\Http\Middleware\AuthMiddleware;
  
 
 Route::get('/users', [UserController::class, 'index']);
-Route::resource('/users', UserController::class)
-->middleware(AuthMiddleware::class);
+Route::resource('/users', UserController::class)->middleware(AuthMiddleware::class);
 Route::post('new-user', [UserController::class, 'store']);
 Route::get('/user', [UserController::class, 'show']);
 
@@ -25,6 +24,6 @@ Route::get('/orders', [OrderController::class,'index']);
 
 Route::post('/crear-plato', [PlatoController::class, 'store']);
 Route::get('/plato', [PlatoController::class, 'show']);
-Route::get('/plato', [PlatoController::class, 'showAll']);
+Route::get('/platos', [PlatoController::class, 'showAll'])->middleware(AuthMiddleware::class);
 Route::patch('/actualizar-plato', [PlatoController::class, 'update']);
 Route::delete('/borrar-plato', [PlatoController::class, 'destroy']);
