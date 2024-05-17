@@ -24,6 +24,6 @@ Route::get('/orders', [OrderController::class,'index']);
 
 Route::post('/crear-plato', [PlatoController::class, 'store']);
 Route::get('/plato', [PlatoController::class, 'show']);
-Route::get('/platos', [PlatoController::class, 'showAll'])->middleware(AuthMiddleware::class);
+Route::get('/platos', [PlatoController::class, 'showAll']);
 Route::patch('/actualizar-plato', [PlatoController::class, 'update']);
 Route::delete('/borrar-plato', [PlatoController::class, 'destroy']);

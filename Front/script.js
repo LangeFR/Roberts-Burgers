@@ -99,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Función ASINCRONA para cargar y mostrar los platos según la categoría
   async function mostrarPlatosPorCategoria(categoria) {
+
     try {
       mostrarLoading(categoria);
       mostrarBloqueoPantalla();
@@ -106,30 +107,41 @@ document.addEventListener("DOMContentLoaded", () => {
       infoPlato.innerHTML = "";
 
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbwgidJUqj5RAmPH_sZQVA2D-rHAcxO4bKfAjG2ursRCa3o7dbFZ36WafHT0-Z-bCr8X/exec"
+        "http://127.0.0.1:8000/api/platos"
       );
       if (response.ok) {
         const data = await response.json();
-        const platosCategoria = data.data.filter(
-          (plato) => plato.Categoria === categoria
-        ); //se filtran por categorias :)
+        console.log(data);
+        console.log(categoria);
+        // const platosCategoria = data.data.filter(
+        //   (plato) => plato.categoria === categoria
+        // );
+
+        const platosCategoria = [];
+          for (let i = 0; i < data.length; i++) {
+            const plato = data[i];
+            if (plato.categoria === categoria) {
+              platosCategoria.push(plato);
+            }
+          }
+        console.log(platosCategoria);
+        //se filtran por categorias :)
         // Mostrar info de los platos de la categoría
 
         platosCategoria.forEach((plato) => {
-          console.log(`${plato.Nombre}`);
-          console.log(`{plato.Nombre}`);
+          console.log(plato);
           infoPlato.innerHTML += ` 
-                  <div class="platoContainer"  id="infoPlatoContainer${plato.ID}">                      
-                      <img id="imagen${plato.ID}" src="${plato.Imagen ?? ""}"/>
+                  <div class="platoContainer"  id="infoPlatoContainer${plato.id}">                      
+                      <img id="imagen${plato.id}" src="${plato.imagen ?? ""}"/>
                       <div class"infoPlatoContainer">
                         <div class="nombrePrecioPlato">
-                          <h3 class="nombre">${plato.Nombre ?? ""}</h3>
+                          <h3 class="nombre">${plato.nombre ?? ""}</h3>
                           <h3> - </h3>
-                          <h3 class="precio" id="precio${quitarEspacios(plato.Nombre)}">${plato.Precio}</h3>
+                          <h3 class="precio" id="precio${quitarEspacios(plato.nombre)}">${plato.precio}</h3>
                         </div>
-                        <p class="descripcion">${plato.Descripcion ?? ""}</p>
-                        <p class="id">ID: ${plato.ID ?? ""}</p>
-                        <button class="añadir-carrito" onClick="añadirAlCarrito(${plato.ID
+                        <p class="descripcion">${plato.descripcion ?? ""}</p>
+                        <p class="id">ID: ${plato.id ?? ""}</p>
+                        <button class="añadir-carrito" onClick="añadirAlCarrito(${plato.id
             })">Agregar al carrito</button>
                       </div>
                   </div>
@@ -137,10 +149,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     
           `;
 
-          let idPrecio = "precio" + quitarEspacios(plato.Nombre);
+          let idPrecio = "precio" + quitarEspacios(plato.nombre);
           formatoPrecio(idPrecio);
 
-          let tempID = "imagen" + plato.ID;
+          let tempID = "imagen" + plato.id;
           let imagenPlato = document.getElementById(tempID);
 
           imagenPlato.setAttribute(
@@ -148,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "aspect-ratio: 150 / 100; min-height: 150px; min-width: 225px; max-width: 225px; margin-top: 5px; max-height: 150px;"
           );
 
-          tempID = "infoPlatoContainer" + plato.ID;
+          tempID = "infoPlatoContainer" + plato.id;
           let infoPlatoId = document.getElementById(tempID);
           infoPlatoId.setAttribute("style", "display: flex; gap: 10px;");
         });
@@ -166,19 +178,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Llamadas a la función para cargar información en cada divv
   listaItemsPrincipales.addEventListener("click", () => {
-    mostrarPlatosPorCategoria("platosPrincipales");
+    mostrarPlatosPorCategoria("platos_principales");
   });
 
   listaItemsBebidas.addEventListener("click", () => {
-    mostrarPlatosPorCategoria("Bebidas");
+    mostrarPlatosPorCategoria("bebidas");
   });
 
   listaItemsPostres.addEventListener("click", () => {
-    mostrarPlatosPorCategoria("Postres");
+    mostrarPlatosPorCategoria("postres");
   });
 
   listaItemsEntrada.addEventListener("click", () => {
-    mostrarPlatosPorCategoria("Entradas");
+    mostrarPlatosPorCategoria("entradas");
   });
 });
 
