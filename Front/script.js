@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (infoPlato.innerHTML.trim() === "") {
     const loader = document.querySelector("#loader img");
-    loader.src = "hamburguesa_elegante.png";
+    loader.src = "./Imagenes_Varias/hamburguesa_elegante.png";
   }
 
   // Función ASINCRONA para cargar y mostrar los platos según la categoría
