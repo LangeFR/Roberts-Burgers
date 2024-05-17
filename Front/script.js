@@ -112,7 +112,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (response.ok) {
         const data = await response.json();
         console.log(data);
-        console.log(categoria);
         // const platosCategoria = data.data.filter(
         //   (plato) => plato.categoria === categoria
         // );
@@ -124,12 +123,10 @@ document.addEventListener("DOMContentLoaded", () => {
               platosCategoria.push(plato);
             }
           }
-        console.log(platosCategoria);
         //se filtran por categorias :)
         // Mostrar info de los platos de la categoría
 
         platosCategoria.forEach((plato) => {
-          console.log(plato);
           infoPlato.innerHTML += ` 
                   <div class="platoContainer"  id="infoPlatoContainer${plato.id}">                      
                       <img id="imagen${plato.id}" src="${plato.imagen ?? ""}"/>
@@ -218,6 +215,7 @@ function formatoPrecio(idPrecio) {
 
 ///----------------------
 async function añadirAlCarrito(idProducto) {
+  console.log(idProducto);
   if (arrayCarrito(listaJSON).length > 1) {
     let objetoDiv = document.getElementById("carritoComprasID");
     objetoDiv.setAttribute(
@@ -234,16 +232,18 @@ async function añadirAlCarrito(idProducto) {
     mostrarBloqueoPantalla();
 
     const response = await fetch(
-      "https://script.google.com/macros/s/AKfycbwgidJUqj5RAmPH_sZQVA2D-rHAcxO4bKfAjG2ursRCa3o7dbFZ36WafHT0-Z-bCr8X/exec"
+      "http://127.0.0.1:8000/api/platos"
     );
     if (response.ok) {
       const dataResponse = await response.json();
+      console.log(dataResponse);
+      const data = dataResponse; // Acceder al arreglo de objetos dentro de la propiedad "data"
 
-      const data = dataResponse.data; // Acceder al arreglo de objetos dentro de la propiedad "data"
-      nombreProducto = data[idProducto].Nombre;
-      precioProducto = parseFloat(data[idProducto].Precio);
-      idProducto = parseInt(data[idProducto].ID);
-
+      
+      nombreProducto = data[idProducto-1].nombre;
+      precioProducto = parseFloat(data[idProducto-1].precio);
+      idProducto = parseInt(data[idProducto-1].id);
+      console.log(data);
       ocultarLoading();
       ocultarBloqueoPantalla();
     } else {
@@ -260,15 +260,20 @@ async function añadirAlCarrito(idProducto) {
 }
 
 // Función para agregar el nombre del producto a la lista en el otro HTML
-function agregarProductoALista(nombreProducto, precioProducto, idProducto) {
+function agregarProductoALista(nombreProducto, precioProducto, idProducto){
   /*
     Revisar si el producto ya esta en la lista
   */
   const carrito = localStorage.getItem("carrito") || [];
   let yaEsta = false;
-
+  
   for (var clave in listaJSON) {
+    console.log(listaJSON);
+    console.log(listaJSON[clave].Nombre);
+    console.log(nombreProducto);
+
     if (listaJSON.hasOwnProperty(clave)) {
+
       if (listaJSON[clave].Nombre === nombreProducto) {
         console.log("Paso. Se añade Cantidad");
         yaEsta = true;
