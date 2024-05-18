@@ -1,6 +1,8 @@
+var token="eilefHhAUGOcN7OUqW2DE5prH2r5UoHQdejJpcK5Q78FLGSyHSO9yQ5pNJEm";
+sessionStorage.setItem("token", token);
 function loadUsers(token) {
     var token = sessionStorage.getItem('token');
-    token = "VK8tGhPbAOkwsNR2Z7AX1eq9qReDEwV4sRaTsmSKeQHmGgEaU3dSCOP2pltg";
+    //token = "eilefHhAUGOcN7OUqW2DE5prH2r5UoHQdejJpcK5Q78FLGSyHSO9yQ5pNJEm";
     const url = 'http://localhost:8000/api/users'; 
     console.log(token);
 
@@ -43,7 +45,7 @@ function loadUsers(token) {
 
 function loadPlatos(token){
     var token = sessionStorage.getItem('token');
-    token = "VK8tGhPbAOkwsNR2Z7AX1eq9qReDEwV4sRaTsmSKeQHmGgEaU3dSCOP2pltg";
+    //token = "VK8tGhPbAOkwsNR2Z7AX1eq9qReDEwV4sRaTsmSKeQHmGgEaU3dSCOP2pltg";
     const url = 'http://localhost:8000/api/platos'; 
     console.log(token);
 
@@ -77,7 +79,7 @@ function loadPlatos(token){
                     <strong>Descripción:</strong> ${plato.descripcion}<br>
                     <strong>Precio:</strong> ${plato.precio}<br>
                     <strong>Categoría:</strong> ${plato.categoria}<br>
-                    <img src="${plato.imagen}" alt="Imagen del plato">
+                    <img src=".${plato.imagen}" alt="Imagen del plato">
                 </li>`;
         });
         
@@ -91,11 +93,14 @@ function loadPlatos(token){
     });
 }
 
+var ordersEntregadas = [];
 function loadPedidos(token) {
     var token = sessionStorage.getItem('token');
-    token = "VK8tGhPbAOkwsNR2Z7AX1eq9qReDEwV4sRaTsmSKeQHmGgEaU3dSCOP2pltg";
+    //token = "VK8tGhPbAOkwsNR2Z7AX1eq9qReDEwV4sRaTsmSKeQHmGgEaU3dSCOP2pltg";
     const url = 'http://localhost:8000/api/orders'; 
     console.log(token);
+
+
 
     const requestOptions = {
         method: 'GET',
@@ -114,6 +119,13 @@ function loadPedidos(token) {
         })
         .then(data => {
             console.log('Lista de pedidos:', data);
+            // Loop para agregar las órdenes entregadas al array global
+            data.forEach(order => {
+                if (order.entregada === 'T') {
+                    ordersEntregadas.push(order.id);
+                }
+            });
+            console.log(ordersEntregadas);
             displayOrders(data); // Llama a la función para mostrar los pedidos en el contenedor
         })
         .catch(error => {
@@ -125,50 +137,84 @@ function displayOrders(orders) {
     const infoContainer = document.getElementById('infoContainer');
     infoContainer.innerHTML = ''; // Vacía el contenedor antes de agregar nuevos elementos
 
+    console.log('orders: ', orders);
     orders.forEach(order => {
-        const orderBox = document.createElement('div');
-        orderBox.classList.add('order-box'); // Agregar clase para la caja del pedido
+        const platosHTML = order.platos.map(plato => `
+            <li class="plato${plato.categoria}">
+                <p>${plato.nombre}</p>
+                <p>Cantidad: ${plato.pivot.quantity}</p>
+                <!-- Puedes agregar más información de cada plato si lo deseas -->
+            </li>
+        `).join('');
 
-        const orderElement = document.createElement('div');
-        orderElement.classList.add('order');
+        const orderHTML = `
+            <div class="order" id="order${order.id}">
+                <h2>Pedido: ${order.id}</h2>
+                <p>Dirección: ${order.direccion}</p>
+                <p>Número: ${order.numero}</p>
+                <p>Usuario: ${order.user.name}</p>
+                <ul class="platos">
+                    ${platosHTML}
+                </ul>
+                <button class="botonEntregado" id="botonEntregado${order.id}" onclick="productoAtendido(${order.id})">Entregado</button>
+            </div>
+        `;
 
-        const orderIdElement = document.createElement('p');
-        orderIdElement.textContent = `ID del pedido: ${order.id}`;
-        orderElement.appendChild(orderIdElement);
+        infoContainer.innerHTML += orderHTML;
 
-        const direccionElement = document.createElement('p');
-        direccionElement.textContent = `Dirección: ${order.direccion}`;
-        orderElement.appendChild(direccionElement);
-
-        const numeroElement = document.createElement('p');
-        numeroElement.textContent = `Número: ${order.numero}`;
-        orderElement.appendChild(numeroElement);
-
-        const usuarioElement = document.createElement('p');
-        usuarioElement.textContent = `Usuario: ${order.user.name}`;
-        orderElement.appendChild(usuarioElement);
-
-        const platosElement = document.createElement('div');
-        platosElement.classList.add('platos');
-        order.platos.forEach(plato => {
-            const platoElement = document.createElement('div');
-            platoElement.classList.add('plato');
-
-            const nombreElement = document.createElement('p');
-            nombreElement.textContent = `Nombre: ${plato.nombre}`;
-            platoElement.appendChild(nombreElement);
-
-            const precioElement = document.createElement('p');
-            precioElement.textContent = `Precio: $${plato.precio}`;
-            platoElement.appendChild(precioElement);
-
-            // Puedes agregar más información de cada plato si lo deseas
-
-            platosElement.appendChild(platoElement);
-        });
-        orderElement.appendChild(platosElement);
-
-        orderBox.appendChild(orderElement);
-        infoContainer.appendChild(orderBox);
+        const orderElement = document.getElementById(`order${order.id}`);
+        if (ordersEntregadas.includes(order.id)) {
+            orderElement.style.backgroundColor = '#90EE90';
+        }
     });
+}
+
+function productoAtendido(idOrder) {
+    //var token = sessionStorage.getItem('token');
+    const formData = {
+        id: idOrder,
+    };
+    const requestOptions = {
+
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "accept-Encoding": "gzip, deflate, br",
+          "Connection": "keep-alive",
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(formData),
+        //mode: 'no-cors',
+    }
+    console.log(requestOptions);
+    console.log(JSON.stringify(formData));
+
+        fetch("http://127.0.0.1:8000/api/entregar-order", requestOptions)
+
+            .then((response) => {
+                console.log(response);
+                // Verificar si la respuesta es exitosa
+                if (!response.ok) {
+                    throw new Error(
+                    "Error al entregar order: " + response.statusText
+                );
+                }
+                // Convertir la respuesta a formato JSON
+                return response;
+            })
+
+            .then((data) => {
+                console.log("Respuesta del servidor:", data);
+
+                // ocultarLoading();
+                // ocultarBloqueoPantalla();
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                alert("Error al entregar el pedido. Por favor, inténtalo de nuevo.");
+            });
+
+    var nombre = "order" + idOrder;
+    var box = document.getElementById(nombre);
+    box.style.backgroundColor = "#90EE90"; // Verde claro
 }

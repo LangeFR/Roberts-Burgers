@@ -236,14 +236,12 @@ async function añadirAlCarrito(idProducto) {
     );
     if (response.ok) {
       const dataResponse = await response.json();
-      console.log(dataResponse);
       const data = dataResponse; // Acceder al arreglo de objetos dentro de la propiedad "data"
 
       
       nombreProducto = data[idProducto-1].nombre;
       precioProducto = parseFloat(data[idProducto-1].precio);
       idProducto = parseInt(data[idProducto-1].id);
-      console.log(data);
       ocultarLoading();
       ocultarBloqueoPantalla();
     } else {
@@ -268,9 +266,6 @@ function agregarProductoALista(nombreProducto, precioProducto, idProducto){
   let yaEsta = false;
   
   for (var clave in listaJSON) {
-    console.log(listaJSON);
-    console.log(listaJSON[clave].Nombre);
-    console.log(nombreProducto);
 
     if (listaJSON.hasOwnProperty(clave)) {
 
@@ -539,31 +534,71 @@ document
     var numero = document.getElementById("numero").value;
     var direccion = document.getElementById("direccion").value;
 
+    sessionStorage.setItem("user_id", 1);
     // Crea un objeto FormData para enviar los datos del formulario
-    var formData = new FormData();
-    formData.append("nombre", nombre);
-    formData.append("numero", numero);
-    formData.append("direccion", direccion);
-    formData.append("productosPedido", arrayCarrito(listaJSON));
-    formData.append("total", precioTotal);
+    const formData = {
+      platos_id: generarArrayDeIDs(listaJSON),
+      direccion: direccion,
+      numero: numero,
+      user_id: sessionStorage.getItem("user_id"),
+    };
+  
+    // formData.append("platos_id", generarArrayDeIDs(listaJSON));
+    // formData.append("direccion", direccion);
+    // formData.append("numero", numero);
+    // formData.append("user_id", sessionStorage.getItem("user_id"));
 
-    var object = {};
-    formData.forEach((value, key) => (object[key] = value));
-    var json = JSON.stringify(object);
+    // //formData.append("total", precioTotal);
+    // console.log(jsonData);
+    // // var object = {};
+    // // formData.forEach((value, key) => (object[key] = value));
+    // // var json = JSON.stringify(object);
 
+
+    let jsonData = {
+      "platos_id": generarArrayDeIDs(listaJSON), // Aquí se agregará el array de IDs de los platos
+      "direccion": direccion, // Dirección del usuario
+      "numero": numero, // Número de teléfono del usuario
+      "user_id": sessionStorage.getItem("user_id") // ID del usuario obtenido del almacenamiento de sesión
+    };
+
+
+    console.log(jsonData);
+    token = "VK8tGhPbAOkwsNR2Z7AX1eq9qReDEwV4sRaTsmSKeQHmGgEaU3dSCOP2pltg";
     mostrarLoading();
     mostrarBloqueoPantalla();
+
+    
+    const requestOptions = {
+
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "accept-Encoding": "gzip, deflate, br",
+        "Connection": "keep-alive",
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(formData),
+      //mode: 'no-cors',
+    }
     // Realiza la solicitud POST mediante fetch
-    fetch(
-      "https://script.google.com/macros/s/AKfycbwgidJUqj5RAmPH_sZQVA2D-rHAcxO4bKfAjG2ursRCa3o7dbFZ36WafHT0-Z-bCr8X/exec",
-      {
-        method: "POST",
-        body: formData,
-      }
-    )
-      .then((response) => response.json())
+    fetch("http://127.0.0.1:8000/api/new-order", requestOptions)
+
+      .then((response) => {
+          console.log(response);
+          // Verificar si la respuesta es exitosa
+          if (!response.ok) {
+              throw new Error(
+              "Error al crear order: " + response.statusText
+          );
+        }
+        // Convertir la respuesta a formato JSON
+        return response;
+      })
+
       .then((data) => {
-        console.log("Response:", data);
+        console.log("Respuesta del servidor:", data);
+
         ocultarLoading();
         ocultarBloqueoPantalla();
         alert("¡Compra realizada con éxito!");
@@ -617,4 +652,36 @@ function encontrarKeyPorID(json, id) {
     json
   );
   return null; // Devuelve null si no se encuentra ningún elemento con el ID especificado
+}
+
+
+function generarArrayDeIDs(jsonProductos) {
+  let idsArray = [];
+  let productos;
+
+  try {
+      // Convertir el JSON a un objeto si es una cadena
+      if (typeof jsonProductos === 'string') {
+          productos = JSON.parse(jsonProductos);
+      } else {
+          productos = jsonProductos;
+      }
+
+      // Asegurarse de que productos sea un array
+      if (!Array.isArray(productos)) {
+          productos = Object.values(productos);
+      }
+
+      // Iterar sobre cada producto en el array
+      productos.forEach(producto => {
+          // Agregar el ID del producto al array según la cantidad
+          for (let i = 0; i < producto.Cantidad; i++) {
+              idsArray.push(producto.ID);
+          }
+      });
+  } catch (error) {
+      console.error("Error al procesar el JSON:", error);
+  }
+
+  return idsArray;
 }

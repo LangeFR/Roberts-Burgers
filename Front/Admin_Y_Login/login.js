@@ -42,6 +42,7 @@ document
                 
                 // Guardar el token en el session storage del navegador
                 sessionStorage.setItem("token", data.token);
+                sessionStorage.setItem("user_id", data.user_id);
             })
             .catch((error) => {
                 // Capturar y mostrar cualquier error

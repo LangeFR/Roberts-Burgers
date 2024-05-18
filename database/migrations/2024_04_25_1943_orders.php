@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('direccion');
             $table->string('numero');
             $table->string('user_id');
+            $table->string('entregada');
             $table->timestamps();
         });
     }

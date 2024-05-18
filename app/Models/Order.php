@@ -14,10 +14,15 @@ class Order extends Model
     protected $fillable = [
         'direccion',
         'numero',
-        'user_id'
+        'user_id',
+        'entregada'
     ];
+    protected $attributes = [
+        'entregada' => 'F' // Valor predeterminado para el campo 'entregada'
+    ];
+
     /**
-     * Get the user that owns the phone.
+     * Get the user that owns the order.
      */
     public function user()
     {

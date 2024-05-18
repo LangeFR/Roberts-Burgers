@@ -5,16 +5,170 @@ img {
     max-height: 80px;
 }
 
-/* Estilo para agregar desplazamiento de desbordamiento */
+/* Header */
+.header {
+    width: 100%;
+    background-color: rgb(48, 46, 46);
+    padding: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.logo img {
+    display: block;
+}
+
+.links ul {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.links ul li {
+    margin-right: 20px;
+}
+
+.links ul li:last-child {
+    margin-right: 0;
+}
+
+.links ul li a {
+    text-decoration: none;
+    color: #ffd23f;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+/* Admin Panel */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.admin-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 1200px;
+    margin-top: 20px;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.button-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+.button-container button:hover {
+    background-color: #0056b3;
+}
+
+#botonesAdmin{
+    display: flex;
+    flex-direction: row;
+    gap: 10px
+}
+
 #infoContainer {
-    max-height: 200px; /* Altura máxima del contenedor */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Fijo a cinco columnas */
+    gap: 16px;
+    padding: 16px;
+    width: 100%;
+    max-height: 600px; /* Altura máxima del contenedor */
     overflow-y: auto; /* Agregar desplazamiento vertical cuando el contenido exceda la altura máxima */
 }
 
-/* Estilo para la caja del pedido */
-.order-box {
-    background-color: #f2f2f2; /* Fondo gris claro */
-    border: 1px solid #ccc; /* Borde gris */
-    padding: 10px; /* Espaciado interno */
-    margin-bottom: 10px; /* Espaciado entre cajas de pedidos */
+.order {
+    display: flex;
+    flex-direction: column;
+    background-color: #FFCCCB;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    min-width: 200px;
 }
+.order p{
+    margin: 5px;
+}
+.order ul{
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    padding: 0; /* Opcional: para eliminar el padding por defecto del navegador */
+    margin: 0; /* Opcional: para eliminar el margin por defecto del navegador */
+    gap: 10px;
+}
+
+
+.platos{
+    background-color: #fff;
+    border-radius: 5%;
+    padding: 10px;
+    border-radius: 5%;
+    max-height: 175px;
+    overflow-y: auto;
+}
+.platos p{
+    margin-top: 0px;
+}
+
+.plato {
+    margin-top: 8px;
+}
+
+.plato p {
+    margin: 4px 0;
+    margin-top: 0px;
+}
+
+h2{
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Estilo para el botón de Entregado */
+.botonEntregado {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #fff;
+    color: black;
+
+}
+

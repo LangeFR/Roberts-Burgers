@@ -21,11 +21,13 @@ class AuthController extends Controller
         if ($user && password_verify($clave, $user->password)) {
             //crear token
             $token = Str::random(60);
+            $user_id = $user->id;
+
             $user->remember_token = $token;
             $user->save();
 
             $message = "Inicio de sesión exitoso!";
-            return response()->json(['message' => $message, 'token' => $token]);
+            return response()->json(['message' => $message, 'token' => $token, 'user_id' => $user_id]);
         } elseif (!$user) {
             $message = "El usuario no existe.";
             return response()->json(['message' => $message], 400);

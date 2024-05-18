@@ -138,4 +138,5 @@ class PlatoController extends Controller
 
         return response()->json($platos);
     }
+    
 }

@@ -77,9 +77,41 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        // Obtener los datos de la solicitud
+        $id = $request->input('id');
+        $order = Order::find($id);
+
+         if (empty($order)) {
+            return response()->json(['error' => 'Plato no encontrado'], 404);
+        }
+
+        $dirieccion = $request->input('dirieccion');
+        $numero = $request->input('numero');
+        $user_id = $request->input('user_id');
+        $entregada = $request->input('entregada');
+
+        if(!empty($dirieccion)){
+            $order->dirieccion = $dirieccion;
+        }
+        if(!empty($numero)){
+            $order->numero = $numero;
+        }
+
+        if(!empty($user_id)){
+            $order->user_id = $user_id;
+        }
+
+        if(!empty($entregada)){
+            $order->entregada = $entregada;
+        }
+
+        // Guardar el plato en la base de datos u realizar otras operaciones necesarias
+        $order->save();
+
+        // Devolver el objeto Ciudadano creado en formato JSON
+        return response()->json($order);
     }
 
     /**
@@ -88,5 +120,13 @@ class OrderController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function entregarOrder(Request $request)
+    {
+        $order = Order::find($request->id);
+        $order->entregada = "T";
+        $order->save();
+        return response()->json($order);
     }
 }

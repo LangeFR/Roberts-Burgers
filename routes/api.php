@@ -21,6 +21,8 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/order', [OrderController::class, 'show']);
 Route::post('/new-order', [OrderController::class, 'store']);
 Route::get('/orders', [OrderController::class,'index']);
+Route::post('/update-order', [OrderController::class,'update']);
+Route::post('/entregar-order', [OrderController::class,'entregarOrder']);
 
 Route::post('/crear-plato', [PlatoController::class, 'store']);
 Route::get('/plato', [PlatoController::class, 'show']);
