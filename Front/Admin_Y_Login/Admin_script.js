@@ -142,11 +142,6 @@ async function verUsuario(idUsuario) {
             `;
 
             ordersHTML += orderHTML;
-
-            // const orderElement = document.getElementById(`order${order.id}`);
-            // if (order.entregada === "T") {
-            //     orderElement.style.backgroundColor = '#90EE90';
-            // }
         }
         userContainer.innerHTML += `
         
@@ -154,7 +149,9 @@ async function verUsuario(idUsuario) {
             ${ordersHTML}
         </div>
         `;
-    
+        console.log(data[0].orders)
+        marcarColorEntregado(data[0].orders);
+        observarCambiosInfoContainer();
     } catch (error) {
         console.error('Error al cargar datos del usuario:', error);
     }
@@ -279,12 +276,8 @@ function displayOrders(orders) {
         `;
 
         infoContainer.innerHTML += orderHTML;
-
-        const orderElement = document.getElementById(`order${order.id}`);
-        if (order.entregada === "T") {
-            orderElement.style.backgroundColor = '#90EE90';
-        }
     });
+    marcarColorEntregado(orders);
 }
 
 function productoAtendido(idOrder) {
@@ -353,4 +346,40 @@ async function getOrderById(idOrder) {
     } catch (error) {
         console.error('Error al cargar pedidos:', error);
     }
+}
+
+
+function marcarColorEntregado(orders){
+    orders.forEach(order => {
+        if (order.entregada === "T") {
+            const orderElement = document.getElementById(`order${order.id}`);
+            orderElement.style.backgroundColor = '#90EE90';
+        }
+    });
+    
+}
+
+function observarCambiosInfoContainer() {
+    // Selecciona el nodo de #infoContainer y #usuarioContainer
+    const infoContainer = document.getElementById('infoContainer');
+    const usuarioContainer = document.getElementById('usuarioContainer');
+
+    // Función para limpiar el contenido de #usuarioContainer
+    function limpiarUsuarioContainer() {
+        usuarioContainer.innerHTML = "";
+    }
+
+    // Configurar Mutation Observer para observar cambios en #infoContainer
+    const observer = new MutationObserver(() => {
+        limpiarUsuarioContainer();
+    });
+
+    // Configurar opciones para el observador
+    const observerOptions = {
+        childList: true, // Observar cambios en los hijos (agregar o eliminar elementos)
+        subtree: true // Observar todo el subárbol descendente
+    };
+
+    // Inicia la observación de #infoContainer con las opciones especificadas
+    observer.observe(infoContainer, observerOptions);
 }
