@@ -100,9 +100,11 @@ body {
     gap: 10px
 }
 
-#infoContainer {
+#infoContainer,
+#pedidosUsuarioContainer{
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Fijo a cinco columnas */
+    column-gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
     gap: 16px;
     padding: 16px;
     width: 100%;
@@ -110,11 +112,15 @@ body {
     overflow-y: auto; /* Agregar desplazamiento vertical cuando el contenido exceda la altura máxima */
 }
 
+
+/*
+    Ver pedidos
+*/
 .order {
     display: flex;
     flex-direction: column;
     background-color: #FFCCCB;
-    border: 1px solid #ccc;
+    border: 8px solid #fff;
     border-radius: 8px;
     padding: 16px;
     min-width: 200px;
@@ -170,5 +176,105 @@ h2{
     background-color: #fff;
     color: black;
 
+}
+/*
+    Fin ver pedidos
+*/
+/*
+    Ver platos
+*/
+
+/* Estilo para el contenedor de pedidos */
+.order {
+    display: flex;
+    flex-direction: column;
+    background-color: #FFCCCB;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    min-width: 26%;
+}
+
+.order p {
+    margin: 5px;
+}
+
+.order ul {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    padding: 0; /* Opcional: para eliminar el padding por defecto del navegador */
+    margin: 0; /* Opcional: para eliminar el margin por defecto del navegador */
+    gap: 10px;
+}
+
+/* Estilo para el contenedor de platos */
+/* Estilo para el contenedor de platos */
+
+
+.platos p {
+    margin: 5px;
+}
+
+.platos ul {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    gap: 10px;
+}
+
+/* Estilo para cada plato individual */
+.plato {
+    display: flex;
+    flex-direction: column;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 10px;
+    gap: 5px;
+}
+
+.plato p {
+    margin: 5px;
+}
+
+.ver-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.ver-button:hover {
+    background-color: #0056b3;
+}
+
+/*
+    Fin ver platos
+*/
+/*
+    Inicio ver usuarios
+*/
+#usuarioContainer{
+    display: flex;
+    width: 95%;
+    flex-direction: column;
+    align-items: center;
+    gap:10px;
+}
+#infoUserContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 5px
+    
+}
+#infoUserContainer *{
+    margin: 0;
 }
 

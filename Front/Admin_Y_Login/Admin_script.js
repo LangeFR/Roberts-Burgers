@@ -1,6 +1,28 @@
 var token="eilefHhAUGOcN7OUqW2DE5prH2r5UoHQdejJpcK5Q78FLGSyHSO9yQ5pNJEm";
 sessionStorage.setItem("token", token);
 function loadUsers(token) {
+    const infoContainer = document.getElementById('infoContainer');
+    infoContainer.innerHTML = ''; // Vacía el contenedor antes de agregar nuevos elementos
+
+    // Cambia el estilo del contenedor para que se comporte como una tabla
+    infoContainer.style.display = 'grid';
+    infoContainer.style.gridTemplateColumns = 'repeat(5, auto)';
+    infoContainer.style.gap = '10px';
+    infoContainer.style.justifyItems = 'center';
+
+    // Añadir la fila de encabezado
+    const headerHTML = `
+        <div class="header-cell">-</div>
+        <div class="header-cell">Nombre</div>
+        <div class="header-cell">Email</div>
+        <div class="header-cell">Rol</div>
+        <div class="header-cell">Action</div>
+    `;
+    infoContainer.innerHTML += headerHTML;
+
+    const rows = document.querySelectorAll('#infoContainer > div');
+
+
     var token = sessionStorage.getItem('token');
     //token = "eilefHhAUGOcN7OUqW2DE5prH2r5UoHQdejJpcK5Q78FLGSyHSO9yQ5pNJEm";
     const url = 'http://localhost:8000/api/users'; 
@@ -26,21 +48,116 @@ function loadUsers(token) {
             const infoContainer = document.getElementById('infoContainer');
             
             // Crear una variable para almacenar el HTML que mostrará la lista de usuarios
-            let userListHTML = '<ul>'; // Iniciar la lista HTML
+            let userListHTML = ''; // Iniciar la lista HTML
             
             // Recorrer los datos de usuarios y agregarlos a la lista HTML
             data.forEach(user => {
-                userListHTML += `<li>${user.name} - ${user.email}</li>`;
+                userListHTML = `
+                    <strong>${user.id}</strong>
+                `
+                infoContainer.innerHTML += userListHTML;
+                userListHTML = `
+                    <strong>${user.name}</strong> 
+                `
+                infoContainer.innerHTML += userListHTML;
+                userListHTML = `     
+                    <strong>${user.email}</strong> 
+                `;
+                infoContainer.innerHTML += userListHTML;
+                userListHTML = `
+                    <strong>${user.rol}</strong>
+                `;
+                infoContainer.innerHTML += userListHTML;
+                userListHTML = `
+                    <button class="ver-button" onclick="verUsuario(${user.id})">Ver</button>
+                `
+                infoContainer.innerHTML += userListHTML;
             });
             
-            userListHTML += '</ul>'; // Cerrar la lista HTML
-            
             // Asignar el HTML generado al innerHTML del div
-            infoContainer.innerHTML = userListHTML;
+
         })
         .catch(error => {
             console.error('Error al cargar usuarios:', error);
         });
+}
+
+async function verUsuario(idUsuario) {
+    // Abrir una ventana emergente con Google como URL
+    const url = `http://localhost:8000/api/user?id=${idUsuario}`; 
+
+    const requestOptions = {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    }
+    
+    try {
+        const response = await fetch(url, requestOptions);
+        if (!response.ok) {
+            throw new Error('Error cargando usuario: ' + response.statusText);
+        }
+        const data = await response.json();
+        
+        console.log('Usuario:', data);
+        // Cargar los datos del usuario en userContainer
+        const userContainer = document.getElementById('usuarioContainer');
+        userContainer.innerHTML = `
+            <div id="infoUserContainer">
+                <strong>ID: ${data[0].id}</strong>
+                <h3>Nombre: ${data[0].name}</h3>
+                <h3>Email: ${data[0].email}</h3>
+                <h3>Rol: ${data[0].rol}</h3> 
+            </div>             
+        `;
+
+        var ordersHTML = "";
+        // Mostrar pedidos del usuario
+        for (const orderInfo of data[0].orders) {
+            var order = await getOrderById(orderInfo.id);
+            order = order[0];
+            // console.log("Order:", order);
+            // console.log("User", order.user);
+            // console.log("Platos", order.platos);
+
+
+            const platosHTML = order.platos.map(plato => `
+                <li class="plato${plato.categoria}">
+                    <p>${plato.nombre}</p>
+                    <p>Cantidad: ${plato.pivot.quantity}</p>
+                </li>
+            `).join('');
+
+            const orderHTML = `
+                <div class="order" id="order${order.id}">
+                    <h2>Pedido: ${order.id}</h2>
+                    <p>Dirección: ${order.direccion}</p>
+                    <p>Número: ${order.numero}</p>
+                    <p>Usuario: ${order.user.name}</p>
+                    <ul class="platos">
+                        ${platosHTML}
+                    </ul>
+                </div>
+            `;
+
+            ordersHTML += orderHTML;
+
+            // const orderElement = document.getElementById(`order${order.id}`);
+            // if (order.entregada === "T") {
+            //     orderElement.style.backgroundColor = '#90EE90';
+            // }
+        }
+        userContainer.innerHTML += `
+        
+        <div id="pedidosUsuarioContainer">
+            ${ordersHTML}
+        </div>
+        `;
+    
+    } catch (error) {
+        console.error('Error al cargar datos del usuario:', error);
+    }
 }
 
 function loadPlatos(token){
@@ -69,21 +186,34 @@ function loadPlatos(token){
         const infoContainer = document.getElementById('infoContainer');
         
         // Crear una variable para almacenar el HTML que mostrará la lista de usuarios
-        let platoListHTML = '<ul>'; // Iniciar la lista HTML
+        let platoListHTML = ''; // Iniciar la lista HTML
+
+        data.forEach(plato => {
+            if(plato.categoria == "entradas")
+                plato.categoria = "Entradas";
+            else if(plato.categoria == "platos_principales")
+                plato.categoria = "Platos Principales";
+            else if(plato.categoria == "bebidas")
+                plato.categoria = "Bebidas";
+            else if(plato.categoria == "postres")
+                plato.categoria = "Postres";
+
+        });
+
         
         // Recorrer los datos de usuarios y agregarlos a la lista HTML
         data.forEach(plato => {
             platoListHTML += `
-                <li>
+                <div class="plato" id="plato${plato.id}">
+                    <h2>ID: ${plato.id}</h2> 
                     <strong>Nombre:</strong> ${plato.nombre}<br>
                     <strong>Descripción:</strong> ${plato.descripcion}<br>
-                    <strong>Precio:</strong> ${plato.precio}<br>
+                    <strong>Precio: </strong> $${plato.precio} 
                     <strong>Categoría:</strong> ${plato.categoria}<br>
-                    <img src=".${plato.imagen}" alt="Imagen del plato">
-                </li>`;
+                </div>`;
         });
         
-        platoListHTML += '</ul>'; // Cerrar la lista HTML
+        //platoListHTML += '</ul>'; // Cerrar la lista HTML
         
         // Asignar el HTML generado al innerHTML del div
         infoContainer.innerHTML = platoListHTML;
@@ -93,14 +223,11 @@ function loadPlatos(token){
     });
 }
 
-var ordersEntregadas = [];
 function loadPedidos(token) {
     var token = sessionStorage.getItem('token');
     //token = "VK8tGhPbAOkwsNR2Z7AX1eq9qReDEwV4sRaTsmSKeQHmGgEaU3dSCOP2pltg";
     const url = 'http://localhost:8000/api/orders'; 
     console.log(token);
-
-
 
     const requestOptions = {
         method: 'GET',
@@ -118,14 +245,6 @@ function loadPedidos(token) {
             return response.json();
         })
         .then(data => {
-            console.log('Lista de pedidos:', data);
-            // Loop para agregar las órdenes entregadas al array global
-            data.forEach(order => {
-                if (order.entregada === 'T') {
-                    ordersEntregadas.push(order.id);
-                }
-            });
-            console.log(ordersEntregadas);
             displayOrders(data); // Llama a la función para mostrar los pedidos en el contenedor
         })
         .catch(error => {
@@ -143,7 +262,6 @@ function displayOrders(orders) {
             <li class="plato${plato.categoria}">
                 <p>${plato.nombre}</p>
                 <p>Cantidad: ${plato.pivot.quantity}</p>
-                <!-- Puedes agregar más información de cada plato si lo deseas -->
             </li>
         `).join('');
 
@@ -163,7 +281,7 @@ function displayOrders(orders) {
         infoContainer.innerHTML += orderHTML;
 
         const orderElement = document.getElementById(`order${order.id}`);
-        if (ordersEntregadas.includes(order.id)) {
+        if (order.entregada === "T") {
             orderElement.style.backgroundColor = '#90EE90';
         }
     });
@@ -186,8 +304,6 @@ function productoAtendido(idOrder) {
         body: JSON.stringify(formData),
         //mode: 'no-cors',
     }
-    console.log(requestOptions);
-    console.log(JSON.stringify(formData));
 
         fetch("http://127.0.0.1:8000/api/entregar-order", requestOptions)
 
@@ -217,4 +333,24 @@ function productoAtendido(idOrder) {
     var nombre = "order" + idOrder;
     var box = document.getElementById(nombre);
     box.style.backgroundColor = "#90EE90"; // Verde claro
+}
+async function getOrderById(idOrder) {
+    const url = `http://127.0.0.1:8000/api/order?id=${idOrder}`; 
+    const requestOptions = {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    }
+
+    try {
+        const response = await fetch(url, requestOptions);
+        if (!response.ok) {
+            throw new Error('Error cargando pedidos: ' + response.statusText);
+        }
+        const data = await response.json();
+        return data; // Devuelve los datos del pedido
+    } catch (error) {
+        console.error('Error al cargar pedidos:', error);
+    }
 }
