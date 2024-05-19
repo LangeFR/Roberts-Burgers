@@ -685,3 +685,15 @@ function generarArrayDeIDs(jsonProductos) {
 
   return idsArray;
 }
+
+function identificarRol() {
+  // Tu lógica para mostrar el token aquí
+  const token = ('Token: ', sessionStorage.getItem('token')); // Ejemplo de implementación
+
+  
+}
+
+// Agrega un evento listener para 'DOMContentLoaded'
+document.addEventListener('DOMContentLoaded', (event) => {
+  mostrarToken(); // Llama a la función mostrarToken cuando el DOM esté completamente cargado
+});

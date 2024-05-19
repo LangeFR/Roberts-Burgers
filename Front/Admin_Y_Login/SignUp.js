@@ -1,16 +1,20 @@
 document
-    .getElementById("loginForm")
+    .getElementById("signUpForm")
     .addEventListener("submit", function (event) {
         event.preventDefault(); // Evitar que el formulario se envíe de forma predeterminada
 
         // Obtener los valores de usuario y contraseña del formulario
+        const name = document.getElementById("campoName").value;
         const email = document.getElementById("campoEmail").value;
         const password = document.getElementById("campoPassword").value;
+        const campoRol = document.getElementById("campoRol").value;
 
         // Objeto con los datos del formulario a enviar
         const formData = {
+            name: name,
             email: email,
             password: password,
+            rol: campoRol,
         };
 
         // Configurar la solicitud POST
@@ -24,13 +28,13 @@ document
         };
         console.log(requestOptions)
         // Realizar la solicitud POST utilizando Fetch API
-        fetch("http://127.0.0.1:8000/api/login", requestOptions)
+        fetch("http://127.0.0.1:8000/api/new-user", requestOptions)
         
             .then((response) => {
                 // Verificar si la respuesta es exitosa
                 if (!response.ok) {
                     throw new Error(
-                        "Error al iniciar sesión: " + response.statusText
+                        "Error al crear usuario: " + response.statusText
                     );
                 }
 
@@ -41,11 +45,10 @@ document
                 // Manejar la respuesta JSON
                 console.log("Respuesta del servidor:", data);
                 
-                // Guardar el token en el session storage del navegador
-                sessionStorage.setItem("token", data.token);
-                sessionStorage.setItem("user_id", data.user_id);
+                // Informa que se creo el usuario con exito
+                alert("Usuario creado con exito");
                 
-                window.location.href = '../index.html';
+                window.location.href = './Roberts.html';
             })
             .catch((error) => {
                 // Capturar y mostrar cualquier error

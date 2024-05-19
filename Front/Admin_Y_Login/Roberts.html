@@ -6,14 +6,16 @@
   <body>
     <div class="login-container">
       <h1>¡Inicia sesión en Robert's Burgers!</h1>
-      <form action="login.php" method="post">
-        <input type="text" name="email" placeholder="Ingresa tu email" required />
-        <input type="password" name="password" placeholder="Ingresa tu contraseña" required />
+      <!-- <form action="login.php" method="post"> -->
+      <form id="loginForm">
+        <input id="campoEmail" type="text" name="email" placeholder="Ingresa tu email" required />
+        <input id="campoPassword" type="password" name="password" placeholder="Ingresa tu contraseña" required />
         <button type="submit">Ingresar</button>
       </form>
+      <p>¿No tienes una cuenta? <a href="SignUp.html">Regístrate aquí</a></p>
     </div>
   </body>
-  <script src="login.js"></script>
+  <script src="SignUp.js"></script>
   
 
 </html>

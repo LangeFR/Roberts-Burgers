@@ -24,6 +24,12 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request){
+        $user = User::where('email', $request->email)->first();
+        if($user){
+            $message = 'El usuario ya existe.';
+            return response()->json(['message' => $message], 400);
+        }
+
         // Crear el usuario
         $user = new User();
         $user->name = $request->name;

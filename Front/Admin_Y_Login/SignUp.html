@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="SignUp.css" />
+  </head>
+  <body>
+    <div class="login-container">
+      <h1>¡Regístrate en Robert's Burgers!</h1>
+      <form id="signUpForm">
+        <input id="campoName" type="text" name="name" placeholder="Ingresa tu nombre" required />
+        <input id="campoEmail" type="email" name="email" placeholder="Ingresa tu email" required />
+        <input id="campoPassword" type="password" name="password" placeholder="Ingresa tu contraseña" required />
+        <select id="campoRol" name="rol" required>
+          <option value="" disabled selected>Selecciona tu rol</option>
+          <option value="U">Usuario</option>
+          <option value="A">Administrador</option>
+        </select>
+        <button type="submit">Registrarse</button>
+      </form>
+      <p>¿Ya tienes una cuenta? <a href="Roberts.html">Inicia sesión aquí</a></p>
+    </div>
+  </body>
+  <script src="signup.js"></script>
+</html>
