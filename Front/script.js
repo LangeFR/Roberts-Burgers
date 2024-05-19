@@ -686,14 +686,59 @@ function generarArrayDeIDs(jsonProductos) {
   return idsArray;
 }
 
-function identificarRol() {
+async function identificarRol() {
   // Tu lógica para mostrar el token aquí
-  const token = ('Token: ', sessionStorage.getItem('token')); // Ejemplo de implementación
+  const idUsuario = sessionStorage.getItem('user_id');
+  const token = sessionStorage.getItem('token');
 
+  // Abrir una ventana emergente con Google como URL
+  const url = `http://localhost:8000/api/user?id=${idUsuario}`; 
+
+  const requestOptions = {
+      method: 'GET',
+      headers: {
+          'Authorization': `Bearer ${token}`,
+      },
+  }
   
+  try {
+      const response = await fetch(url, requestOptions);
+      if (!response.ok) {
+          throw new Error('Error cargando usuario: ' + response.statusText);
+      }
+      const data = await response.json();
+      
+      console.log('Usuario:', data);
+      // Cargar los datos del usuario en userContainer
+      const user = data[0];
+
+      if(user.rol === 'A'){
+        const botonAdminPanel = document.getElementById('botonAdminPanel');
+        botonAdminPanel.style.display = 'block';
+      }
+      
+  } catch (error) {
+      console.error('Error al cargar datos del usuario:', error);
+  }
 }
 
 // Agrega un evento listener para 'DOMContentLoaded'
 document.addEventListener('DOMContentLoaded', (event) => {
-  mostrarToken(); // Llama a la función mostrarToken cuando el DOM esté completamente cargado
+  identificarRol(); // Llama a la función mostrarToken cuando el DOM esté completamente cargado
 });
+
+document.getElementById('botonCerrarSesion').addEventListener('click', function(event) {
+  event.preventDefault(); // Previene la navegación predeterminada
+
+  // Lógica para cerrar sesión
+  cerrarSesion();
+});
+
+function cerrarSesion() {
+  // Ejemplo de cierre de sesión
+  sessionStorage.removeItem('token'); // Elimina el token de sesión
+  alert('Has cerrado sesión correctamente');
+
+  // Redirigir a la página de inicio de sesión o a otra página
+  window.location.href = './Admin_Y_Login/Roberts.html';
+}

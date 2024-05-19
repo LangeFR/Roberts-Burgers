@@ -1,5 +1,5 @@
-var token="eilefHhAUGOcN7OUqW2DE5prH2r5UoHQdejJpcK5Q78FLGSyHSO9yQ5pNJEm";
-sessionStorage.setItem("token", token);
+var token=sessionStorage.getItem("token");
+
 function loadUsers(token) {
     const infoContainer = document.getElementById('infoContainer');
     infoContainer.innerHTML = ''; // Vacía el contenedor antes de agregar nuevos elementos

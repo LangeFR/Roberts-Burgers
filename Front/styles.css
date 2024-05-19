@@ -784,3 +784,6 @@ h7{
     color: white;
     font-size: 24px;
   }
+  #botonAdminPanel{
+    display: none;
+  }
