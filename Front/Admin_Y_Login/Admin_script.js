@@ -422,5 +422,5 @@ function cerrarSesion() {
     alert('Has cerrado sesión correctamente');
   
     // Redirigir a la página de inicio de sesión o a otra página
-    window.location.href = './Admin_Y_Login/Roberts.html';
+    window.location.href = './Roberts.html';
   }
