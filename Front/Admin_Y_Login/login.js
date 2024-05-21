@@ -29,7 +29,12 @@ document
             .then((response) => {
                 // Verificar si la respuesta es exitosa
                 if (!response.ok) {
-                    alert(response.message);
+                    if(response.status == 401){
+                        alert("Credenciales incorrectas");
+                    }
+                    else if(response.status == 400){
+                        alert("Usuario no Existe");
+                    }
                     throw new Error(
                         "Error al iniciar sesión: " + response.statusText
                     );
