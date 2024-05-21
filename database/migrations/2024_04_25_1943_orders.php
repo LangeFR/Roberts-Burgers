@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('direccion');
             $table->string('numero');
-            $table->string('user_id');
+            $table->foreignId('user_id');
             $table->string('entregada');
             $table->timestamps();
         });
