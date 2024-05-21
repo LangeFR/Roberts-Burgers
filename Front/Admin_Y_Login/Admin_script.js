@@ -309,7 +309,7 @@ function productoAtendido(idOrder) {
         //mode: 'no-cors',
     }
 
-        fetch("http://127.0.0.1:8000/api/entregar-order", requestOptions)
+        fetch("https://roberts-burgers.onrender.com/entregar-order", requestOptions)
 
             .then((response) => {
                 console.log(response);
@@ -339,7 +339,7 @@ function productoAtendido(idOrder) {
     box.style.backgroundColor = "#90EE90"; // Verde claro
 }
 async function getOrderById(idOrder) {
-    const url = `http://127.0.0.1:8000/api/order?id=${idOrder}`; 
+    const url = `https://roberts-burgers.onrender.com/order?id=${idOrder}`; 
     const requestOptions = {
         method: 'GET',
         headers: {

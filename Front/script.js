@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
       infoPlato.innerHTML = "";
 
       const response = await fetch(
-        "http://127.0.0.1:8000/api/platos"
+        "https://roberts-burgers.onrender.com/platos"
       );
       if (response.ok) {
         const data = await response.json();
@@ -232,7 +232,7 @@ async function añadirAlCarrito(idProducto) {
     mostrarBloqueoPantalla();
 
     const response = await fetch(
-      "http://127.0.0.1:8000/api/platos"
+      "https://roberts-burgers.onrender.com/platos"
     );
     if (response.ok) {
       const dataResponse = await response.json();
@@ -582,7 +582,7 @@ document
       //mode: 'no-cors',
     }
     // Realiza la solicitud POST mediante fetch
-    fetch("http://127.0.0.1:8000/api/new-order", requestOptions)
+    fetch("https://roberts-burgers.onrender.com/new-order", requestOptions)
 
       .then((response) => {
           console.log(response);
