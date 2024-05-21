@@ -25,7 +25,7 @@ function loadUsers(token) {
 
     var token = sessionStorage.getItem('token');
     //token = "eilefHhAUGOcN7OUqW2DE5prH2r5UoHQdejJpcK5Q78FLGSyHSO9yQ5pNJEm";
-    const url = 'https://roberts-burgers.onrender.com/users'; 
+    const url = 'https://roberts-burgers.onrender.com/api/users'; 
     console.log(token);
 
     const requestOptions = {
@@ -84,7 +84,7 @@ function loadUsers(token) {
 
 async function verUsuario(idUsuario) {
     // Abrir una ventana emergente con Google como URL
-    const url = `https://roberts-burgers.onrender.com/user?id=${idUsuario}`; 
+    const url = `https://roberts-burgers.onrender.com/api/user?id=${idUsuario}`; 
 
     const requestOptions = {
         method: 'GET',
@@ -160,7 +160,7 @@ async function verUsuario(idUsuario) {
 function loadPlatos(token){
     var token = sessionStorage.getItem('token');
     //token = "VK8tGhPbAOkwsNR2Z7AX1eq9qReDEwV4sRaTsmSKeQHmGgEaU3dSCOP2pltg";
-    const url = 'https://roberts-burgers.onrender.com/platos'; 
+    const url = 'https://roberts-burgers.onrender.com/api/platos'; 
     console.log(token);
 
     const requestOptions = {
@@ -222,7 +222,7 @@ function loadPlatos(token){
 
 async function getPedidos() {
     var token = sessionStorage.getItem('token');
-    const url = 'https://roberts-burgers.onrender.com/orders'; 
+    const url = 'https://roberts-burgers.onrender.com/api/orders'; 
     console.log(token);
 
     const requestOptions = {
@@ -309,7 +309,7 @@ function productoAtendido(idOrder) {
         //mode: 'no-cors',
     }
 
-        fetch("https://roberts-burgers.onrender.com/entregar-order", requestOptions)
+        fetch("https://roberts-burgers.onrender.com/api/entregar-order", requestOptions)
 
             .then((response) => {
                 console.log(response);
@@ -339,7 +339,7 @@ function productoAtendido(idOrder) {
     box.style.backgroundColor = "#90EE90"; // Verde claro
 }
 async function getOrderById(idOrder) {
-    const url = `https://roberts-burgers.onrender.com/order?id=${idOrder}`; 
+    const url = `https://roberts-burgers.onrender.com/api/order?id=${idOrder}`; 
     const requestOptions = {
         method: 'GET',
         headers: {

@@ -28,7 +28,7 @@ document
         };
         console.log(requestOptions)
         // Realizar la solicitud POST utilizando Fetch API
-        fetch("https://roberts-burgers.onrender.com/new-user", requestOptions)
+        fetch("https://roberts-burgers.onrender.com/api/new-user", requestOptions)
         
             .then((response) => {
                 // Verificar si la respuesta es exitosa

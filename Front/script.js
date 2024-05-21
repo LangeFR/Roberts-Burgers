@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
       infoPlato.innerHTML = "";
 
       const response = await fetch(
-        "https://roberts-burgers.onrender.com/platos"
+        "https://roberts-burgers.onrender.com/api/platos"
       );
       if (response.ok) {
         const data = await response.json();
@@ -232,7 +232,7 @@ async function añadirAlCarrito(idProducto) {
     mostrarBloqueoPantalla();
 
     const response = await fetch(
-      "https://roberts-burgers.onrender.com/platos"
+      "https://roberts-burgers.onrender.com/api/platos"
     );
     if (response.ok) {
       const dataResponse = await response.json();
@@ -582,7 +582,7 @@ document
       //mode: 'no-cors',
     }
     // Realiza la solicitud POST mediante fetch
-    fetch("https://roberts-burgers.onrender.com/new-order", requestOptions)
+    fetch("https://roberts-burgers.onrender.com/api/new-order", requestOptions)
 
       .then((response) => {
           console.log(response);
@@ -690,7 +690,7 @@ async function identificarRol() {
   const token = sessionStorage.getItem('token');
 
   // Abrir una ventana emergente con Google como URL
-  const url = `https://roberts-burgers.onrender.com/user?id=${idUsuario}`; 
+  const url = `https://roberts-burgers.onrender.com/api/user?id=${idUsuario}`; 
 
   const requestOptions = {
       method: 'GET',
