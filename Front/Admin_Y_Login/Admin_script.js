@@ -416,12 +416,12 @@ async function showEntregados() {
     }
 }
 
-function cerrarSesion() {
-    // Ejemplo de cierre de sesión
-    sessionStorage.removeItem('token'); // Elimina el token de sesión
-    sessionStorage.removeItem('user_id'); // Elimina el ID de usuario
-    alert('Has cerrado sesión correctamente');
+// function cerrarSesion() {
+//     // Ejemplo de cierre de sesión
+//     sessionStorage.removeItem('token'); // Elimina el token de sesión
+//     sessionStorage.removeItem('user_id'); // Elimina el ID de usuario
+//     alert('Has cerrado sesión correctamente');
   
-    // Redirigir a la página de inicio de sesión o a otra página
-    window.location.href = 'Roberts.html';
-  }
+//     // Redirigir a la página de inicio de sesión o a otra página
+//     window.location.href = 'Roberts.html';
+//   }
