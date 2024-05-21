@@ -278,3 +278,6 @@ h2{
     margin: 0;
 }
 
+.filtroPedidos{
+    display: none;
+}

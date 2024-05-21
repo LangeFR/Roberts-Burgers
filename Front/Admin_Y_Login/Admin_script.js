@@ -220,9 +220,8 @@ function loadPlatos(token){
     });
 }
 
-function loadPedidos(token) {
+async function getPedidos() {
     var token = sessionStorage.getItem('token');
-    //token = "VK8tGhPbAOkwsNR2Z7AX1eq9qReDEwV4sRaTsmSKeQHmGgEaU3dSCOP2pltg";
     const url = 'http://localhost:8000/api/orders'; 
     console.log(token);
 
@@ -233,52 +232,64 @@ function loadPedidos(token) {
         },
     }
 
-    
-    fetch(url, requestOptions)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error cargando pedidos: ' + response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => {
-            displayOrders(data); // Llama a la función para mostrar los pedidos en el contenedor
-        })
-        .catch(error => {
-            console.error('Error al cargar pedidos:', error);
+    try {
+        const response = await fetch(url, requestOptions);
+        if (!response.ok) {
+            throw new Error('Error cargando pedidos: ' + response.statusText);
+        }
+        const data = await response.json();
+        return data; // Llama a la función para mostrar los pedidos en el contenedor
+    } catch (error) {
+        console.error('Error al cargar pedidos:', error);
+    }
+}
+
+
+async function loadPedidos(orders) {
+    const spanFiltro = document.getElementById('idSpanFiltrarPedidos');
+    const buttonPendientes = document.getElementById('idShowPendientes');
+    const buttonEntregados = document.getElementById('idShowEntregados');
+
+    spanFiltro.style.display = 'block';
+    buttonPendientes.style.display = 'block';
+    buttonEntregados.style.display = 'block';
+
+    try {
+        if(!orders) orders = await getPedidos();
+        
+        const infoContainer = document.getElementById('infoContainer');
+        infoContainer.innerHTML = ''; // Vacía el contenedor antes de agregar nuevos elementos
+
+        console.log('orders: ', orders);
+        orders.forEach(order => {
+            const platosHTML = order.platos.map(plato => `
+                <li class="plato${plato.categoria}">
+                    <p>${plato.nombre}</p>
+                    <p>Cantidad: ${plato.pivot.quantity}</p>
+                </li>
+            `).join('');
+
+            const orderHTML = `
+                <div class="order" id="order${order.id}">
+                    <h2>Pedido: ${order.id}</h2>
+                    <p>Dirección: ${order.direccion}</p>
+                    <p>Número: ${order.numero}</p>
+                    <p>Usuario: ${order.user.name}</p>
+                    <ul class="platos">
+                        ${platosHTML}
+                    </ul>
+                    <button class="botonEntregado" id="botonEntregado${order.id}" onclick="productoAtendido(${order.id})">Entregado</button>
+                </div>
+            `;
+
+            infoContainer.innerHTML += orderHTML;
         });
+        marcarColorEntregado(orders);
+    } catch (error) {
+        console.error('Error al cargar los pedidos:', error);
+    }
 }
 
-function displayOrders(orders) {
-    const infoContainer = document.getElementById('infoContainer');
-    infoContainer.innerHTML = ''; // Vacía el contenedor antes de agregar nuevos elementos
-
-    console.log('orders: ', orders);
-    orders.forEach(order => {
-        const platosHTML = order.platos.map(plato => `
-            <li class="plato${plato.categoria}">
-                <p>${plato.nombre}</p>
-                <p>Cantidad: ${plato.pivot.quantity}</p>
-            </li>
-        `).join('');
-
-        const orderHTML = `
-            <div class="order" id="order${order.id}">
-                <h2>Pedido: ${order.id}</h2>
-                <p>Dirección: ${order.direccion}</p>
-                <p>Número: ${order.numero}</p>
-                <p>Usuario: ${order.user.name}</p>
-                <ul class="platos">
-                    ${platosHTML}
-                </ul>
-                <button class="botonEntregado" id="botonEntregado${order.id}" onclick="productoAtendido(${order.id})">Entregado</button>
-            </div>
-        `;
-
-        infoContainer.innerHTML += orderHTML;
-    });
-    marcarColorEntregado(orders);
-}
 
 function productoAtendido(idOrder) {
     //var token = sessionStorage.getItem('token');
@@ -382,4 +393,25 @@ function observarCambiosInfoContainer() {
 
     // Inicia la observación de #infoContainer con las opciones especificadas
     observer.observe(infoContainer, observerOptions);
+}
+
+async function showPendientes() {
+    try {
+        var orders = await getPedidos();
+        var ordersToShow = orders.filter(order => order.entregada === "F");
+
+        loadPedidos(ordersToShow);
+    } catch (error) {
+        console.error('Error al mostrar los pedidos pendientes:', error);
+    }
+}
+async function showEntregados() {
+    try {
+        var orders = await getPedidos();
+        var ordersToShow = orders.filter(order => order.entregada === "T");
+
+        loadPedidos(ordersToShow);
+    } catch (error) {
+        console.error('Error al mostrar los pedidos pendientes:', error);
+    }
 }
