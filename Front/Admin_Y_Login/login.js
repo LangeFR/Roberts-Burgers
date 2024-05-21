@@ -29,6 +29,7 @@ document
             .then((response) => {
                 // Verificar si la respuesta es exitosa
                 if (!response.ok) {
+                    alert(response.message);
                     throw new Error(
                         "Error al iniciar sesión: " + response.statusText
                     );

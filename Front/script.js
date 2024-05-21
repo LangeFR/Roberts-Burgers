@@ -530,7 +530,7 @@ document
 
     }
     // Obtén los valores de los campos del formulario
-    var nombre = document.getElementById("nombre").value;
+    //var nombre = document.getElementById("nombre").value;
     var numero = document.getElementById("numero").value;
     var direccion = document.getElementById("direccion").value;
 
@@ -564,7 +564,7 @@ document
 
 
     console.log(jsonData);
-    token = "VK8tGhPbAOkwsNR2Z7AX1eq9qReDEwV4sRaTsmSKeQHmGgEaU3dSCOP2pltg";
+    token = sessionStorage.getItem("token");
     mostrarLoading();
     mostrarBloqueoPantalla();
 
@@ -615,12 +615,10 @@ document
 
 function limpiarFormulario() {
   // Limpia los valores de los campos del formulario
-  document.getElementById("nombre").value = "";
   document.getElementById("numero").value = "";
   document.getElementById("direccion").value = "";
 
   // Restaura los placeholders de los campos del formulario
-  document.getElementById("nombre").placeholder = "Escribe tu nombre";
   document.getElementById("numero").placeholder = "Escribe tu # de telefono";
   document.getElementById("direccion").placeholder = "Escribe tu dirección";
 }
@@ -724,8 +722,16 @@ async function identificarRol() {
 
 // Agrega un evento listener para 'DOMContentLoaded'
 document.addEventListener('DOMContentLoaded', (event) => {
+  verificarSesion();
   identificarRol(); // Llama a la función mostrarToken cuando el DOM esté completamente cargado
 });
+
+function verificarSesion() {
+  const token = sessionStorage.getItem('token');
+  if (!token) {
+    window.location.href = './Admin_Y_Login/Roberts.html';
+  }
+}
 
 document.getElementById('botonCerrarSesion').addEventListener('click', function(event) {
   event.preventDefault(); // Previene la navegación predeterminada
