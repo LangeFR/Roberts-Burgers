@@ -25,7 +25,7 @@ function loadUsers(token) {
 
     var token = sessionStorage.getItem('token');
     //token = "eilefHhAUGOcN7OUqW2DE5prH2r5UoHQdejJpcK5Q78FLGSyHSO9yQ5pNJEm";
-    const url = 'http://localhost:8000/api/users'; 
+    const url = 'https://roberts-burgers.onrender.com/users'; 
     console.log(token);
 
     const requestOptions = {
@@ -84,7 +84,7 @@ function loadUsers(token) {
 
 async function verUsuario(idUsuario) {
     // Abrir una ventana emergente con Google como URL
-    const url = `http://localhost:8000/api/user?id=${idUsuario}`; 
+    const url = `https://roberts-burgers.onrender.com/user?id=${idUsuario}`; 
 
     const requestOptions = {
         method: 'GET',
@@ -160,7 +160,7 @@ async function verUsuario(idUsuario) {
 function loadPlatos(token){
     var token = sessionStorage.getItem('token');
     //token = "VK8tGhPbAOkwsNR2Z7AX1eq9qReDEwV4sRaTsmSKeQHmGgEaU3dSCOP2pltg";
-    const url = 'http://localhost:8000/api/platos'; 
+    const url = 'https://roberts-burgers.onrender.com/platos'; 
     console.log(token);
 
     const requestOptions = {
@@ -222,7 +222,7 @@ function loadPlatos(token){
 
 async function getPedidos() {
     var token = sessionStorage.getItem('token');
-    const url = 'http://localhost:8000/api/orders'; 
+    const url = 'https://roberts-burgers.onrender.com/orders'; 
     console.log(token);
 
     const requestOptions = {

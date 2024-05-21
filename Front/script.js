@@ -690,7 +690,7 @@ async function identificarRol() {
   const token = sessionStorage.getItem('token');
 
   // Abrir una ventana emergente con Google como URL
-  const url = `http://localhost:8000/api/user?id=${idUsuario}`; 
+  const url = `https://roberts-burgers.onrender.com/user?id=${idUsuario}`; 
 
   const requestOptions = {
       method: 'GET',
