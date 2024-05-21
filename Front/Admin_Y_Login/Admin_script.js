@@ -415,3 +415,12 @@ async function showEntregados() {
         console.error('Error al mostrar los pedidos pendientes:', error);
     }
 }
+
+function cerrarSesion() {
+    // Ejemplo de cierre de sesión
+    sessionStorage.removeItem('token'); // Elimina el token de sesión
+    alert('Has cerrado sesión correctamente');
+  
+    // Redirigir a la página de inicio de sesión o a otra página
+    window.location.href = './Admin_Y_Login/Roberts.html';
+  }
