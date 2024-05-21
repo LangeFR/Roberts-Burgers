@@ -534,7 +534,6 @@ document
     var numero = document.getElementById("numero").value;
     var direccion = document.getElementById("direccion").value;
 
-    sessionStorage.setItem("user_id", 1);
     // Crea un objeto FormData para enviar los datos del formulario
     const formData = {
       platos_id: generarArrayDeIDs(listaJSON),
@@ -743,6 +742,7 @@ document.getElementById('botonCerrarSesion').addEventListener('click', function(
 function cerrarSesion() {
   // Ejemplo de cierre de sesión
   sessionStorage.removeItem('token'); // Elimina el token de sesión
+  sessionStorage.removeItem('user_id'); // Elimina el ID de usuario
   alert('Has cerrado sesión correctamente');
 
   // Redirigir a la página de inicio de sesión o a otra página
